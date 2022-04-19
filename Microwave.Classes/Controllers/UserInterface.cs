@@ -11,7 +11,7 @@ namespace Microwave.Classes.Controllers
             READY, SETPOWER, SETTIME, COOKING, DOOROPEN
         }
 
-        //Test
+        
 
         private States myState = States.READY;
 
