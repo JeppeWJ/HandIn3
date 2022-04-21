@@ -11,9 +11,7 @@ namespace Microwave.Classes.Controllers
          READY, SETPOWER, SETTIME, COOKING, DOOROPEN
       }
 
-        
-
-        private States myState = States.READY;
+      private States myState = States.READY;
 
       private ICookController myCooker;
       private ILight myLight;
