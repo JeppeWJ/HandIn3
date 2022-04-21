@@ -36,13 +36,17 @@ namespace Microwave.App
             powerButton.Press();
 
             timeButton.Press();
+            timeButton.Press();
+            timeButton.Press();
 
             startCancelButton.Press();
+
 
             // The simple sequence should now run
 
             System.Console.WriteLine("When you press enter, the program will stop");
             // Wait for input
+            //System.Threading.Thread.Sleep(3000);
 
             System.Console.ReadLine();
         }
