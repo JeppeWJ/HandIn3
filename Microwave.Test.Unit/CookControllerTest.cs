@@ -83,5 +83,14 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOff();
         }
 
+        [Test]
+        public void AddTime_Called_CorrectTimeAdded()
+        {
+           uut.StartCooking(50, 60);
+           uut.AddTime(30);
+
+           timer.TimeRemaining.Returns(90);
+        }
+
     }
 }
