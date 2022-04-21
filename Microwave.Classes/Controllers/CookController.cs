@@ -51,9 +51,10 @@ namespace Microwave.Classes.Controllers
             myTimer.Stop();
         }
 
-        public void AddTime()
+        public void AddTime(int addedTime)
         {
-           myTimer.Start(30);
+           int time = myTimer.TimeRemaining;
+           myTimer.Start(time + addedTime);
         }
 
         public void OnTimerExpired(object sender, EventArgs e)
