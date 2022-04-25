@@ -9,7 +9,7 @@ namespace Microwave.Classes.Boundary
 
         public event EventHandler Expired;
         public event EventHandler TimerTick;
-
+        private IBuzzer buzzer = new Buzzer();
         private System.Timers.Timer timer;
 
         public Timer()
@@ -48,6 +48,7 @@ namespace Microwave.Classes.Boundary
 
             if (TimeRemaining <= 0)
             {
+                buzzer.BuzzerOn("Bip Bip Bip");
                 Expire();
             }
         }
