@@ -13,9 +13,11 @@ namespace Microwave.Classes.Controllers
 
       private States myState = States.READY;
 
-      private ICookController myCooker;
-      private ILight myLight;
-      private IDisplay myDisplay;
+        private ICookController myCooker;
+        private ILight myLight;
+        private IDisplay myDisplay;
+        private ITimer myTimer;
+        private IPowerTube myPowerTube;
 
       private int powerLevel = 50;
       private int time = 1;
@@ -34,14 +36,30 @@ namespace Microwave.Classes.Controllers
          timeButton.Pressed += new EventHandler(OnTimePressed);
          reduceTimeButton.Pressed += new EventHandler(OnReduceTimePressed);
          startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
+        public UserInterface(
+            IButton powerButton,
+            IButton timeButton,
+            IButton startCancelButton,
+            IDoor door,
+            IDisplay display,
+            ILight light,
+            ICookController cooker,
+            ITimer timer,
+            IPowerTube powerTube)
+        {
+            powerButton.Pressed += new EventHandler(OnPowerPressed);
+            timeButton.Pressed += new EventHandler(OnTimePressed);
+            startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
 
          door.Closed += new EventHandler(OnDoorClosed);
          door.Opened += new EventHandler(OnDoorOpened);
 
-         myCooker = cooker;
-         myLight = light;
-         myDisplay = display;
-      }
+            myCooker = cooker;
+            myLight = light;
+            myDisplay = display;
+            myTimer = timer;
+            myPowerTube = powerTube;
+        }
 
       private void ResetValues()
       {
@@ -49,20 +67,23 @@ namespace Microwave.Classes.Controllers
          time = 1;
       }
 
-      public void OnPowerPressed(object sender, EventArgs e)
-      {
-         switch (myState)
-         {
-            case States.READY:
-               myDisplay.ShowPower(powerLevel);
-               myState = States.SETPOWER;
-               break;
-            case States.SETPOWER:
-               powerLevel = (powerLevel >= 700 ? 50 : powerLevel + 50);
-               myDisplay.ShowPower(powerLevel);
-               break; 
-         }
-      }
+        public void OnPowerPressed(object sender, EventArgs e)
+        {
+            myCooker = new CookController(myTimer, myDisplay, myPowerTube);
+
+            
+            switch (myState)
+            {
+                case States.READY:
+                    myDisplay.ShowPower(powerLevel);
+                    myState = States.SETPOWER;
+                    break;
+                case States.SETPOWER:
+                    powerLevel = (powerLevel >= myPowerTube.Watt ? 50 : powerLevel+50);
+                    myDisplay.ShowPower(powerLevel);
+                    break;
+            }
+        }
 
       public void OnTimePressed(object sender, EventArgs e)
       {

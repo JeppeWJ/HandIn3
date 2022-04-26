@@ -24,11 +24,12 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-         PowerTube powerTube = new PowerTube(output);
+            PowerTube powerTube = new PowerTube(output, 150);
 
          Light light = new Light(output);
 
-         Microwave.Classes.Boundary.Timer timer = new Timer();
+
+            Microwave.Classes.Boundary.Timer timer = new Timer();
 
             CookController cooker = new CookController(timer, display, powerTube,buzzer);
 
