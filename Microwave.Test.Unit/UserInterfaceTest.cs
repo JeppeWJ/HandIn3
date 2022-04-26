@@ -32,6 +32,7 @@ namespace Microwave.Test.Unit
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
             cooker = Substitute.For<ICookController>();
+            cooker.MaxWatt = 700;
 
             uut = new UserInterface(
                 powerButton, timeButton, startCancelButton,
@@ -75,6 +76,7 @@ namespace Microwave.Test.Unit
         [Test]
         public void Ready_2PowerButton_PowerIs100()
         {
+           
             powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
             display.Received(1).ShowPower(Arg.Is<int>(100));
