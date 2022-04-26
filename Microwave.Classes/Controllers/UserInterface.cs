@@ -20,8 +20,6 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
-        private ITimer myTimer;
-        private IPowerTube myPowerTube;
 
       private int powerLevel = 50;
       private int time = 1;
@@ -46,16 +44,10 @@ namespace Microwave.Classes.Controllers
          door.Closed += new EventHandler(OnDoorClosed);
          door.Opened += new EventHandler(OnDoorOpened);
 
-         myCooker = cooker;
-         myLight = light;
-         myDisplay = display;
-         MaxWatt = cooker.MaxWatt;
-      }
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
-            myTimer = timer;
-            myPowerTube = powerTube;
+            MaxWatt = cooker.MaxWatt;
         }
 
       private void ResetValues()
