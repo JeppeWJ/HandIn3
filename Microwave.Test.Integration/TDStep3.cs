@@ -30,6 +30,7 @@ namespace Microwave.Test.Integration
         private Timer timer;
 
         private IOutput output;
+        private int maxWatt = 700;
 
         [SetUp]
         public void Setup()
@@ -44,7 +45,7 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, maxWatt);
             timer = new Timer();
             buzzer = new Buzzer(output);
 
@@ -155,7 +156,7 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, maxWatt);
             var faketimer = Substitute.For<ITimer>();
 
             // Make a new cooker, with the 
