@@ -1,4 +1,5 @@
-﻿using Microwave.Classes.Boundary;
+﻿using Microwave.Classes;
+using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
 using NSubstitute;
@@ -22,14 +23,14 @@ namespace Microwave.Test.Integration
         private Button powerButton;
         private Button timeButton;
         private Button startCancelButton;
-
+        private IBuzzer buzzer;
         private Door door;
 
         [SetUp]
         public void Setup()
         {
             output = Substitute.For<IOutput>();
-
+            buzzer = new Buzzer(output);
             powerButton = new Button();
             timeButton = new Button();
             startCancelButton = new Button();
@@ -42,7 +43,7 @@ namespace Microwave.Test.Integration
 
             light = new Light(output);
 
-            cooker = new CookController(timer, display, powerTube);
+            cooker = new CookController(timer, display, powerTube, buzzer);
             
             ui = new UserInterface(
                 powerButton, timeButton, startCancelButton,
