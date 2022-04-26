@@ -11,21 +11,23 @@ namespace Microwave.Test.Unit
    {
       private CookController uut;
 
-      private IUserInterface ui;
-      private ITimer timer;
-      private IDisplay display;
-      private IPowerTube powerTube;
+        private IUserInterface ui;
+        private ITimer timer;
+        private IDisplay display;
+        private IPowerTube powerTube;
+        private IBuzzer _buzzer;
 
-      [SetUp]
-      public void Setup()
-      {
-         ui = Substitute.For<IUserInterface>();
-         timer = Substitute.For<ITimer>();
-         display = Substitute.For<IDisplay>();
-         powerTube = Substitute.For<IPowerTube>();
+        [SetUp]
+        public void Setup()
+        {
+            ui = Substitute.For<IUserInterface>();
+            timer = Substitute.For<ITimer>();
+            display = Substitute.For<IDisplay>();
+            powerTube = Substitute.For<IPowerTube>();
+            _buzzer = Substitute.For<IBuzzer>();
 
-         uut = new CookController(timer, display, powerTube, ui);
-      }
+            uut = new CookController(timer, display, powerTube, ui, _buzzer);
+        }
 
       [Test]
       public void StartCooking_ValidParameters_TimerStarted()
