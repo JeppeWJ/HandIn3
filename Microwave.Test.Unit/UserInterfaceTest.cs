@@ -77,13 +77,14 @@ namespace Microwave.Test.Unit
          display.Received(1).ShowPower(Arg.Is<int>(50));
       }
 
-      [Test]
-      public void Ready_2PowerButton_PowerIs100()
-      {
-         powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-         powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-         display.Received(1).ShowPower(Arg.Is<int>(100));
-      }
+        [Test]
+        public void Ready_2PowerButton_PowerIs100()
+        {
+           
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            display.Received(1).ShowPower(Arg.Is<int>(100));
+        }
 
       [Test]
       public void Ready_14PowerButton_PowerIs700()
