@@ -16,6 +16,8 @@ namespace Microwave.Classes.Controllers
         private ICookController myCooker;
         private ILight myLight;
         private IDisplay myDisplay;
+        private ITimer myTimer;
+        private IPowerTube myPowerTube;
 
         private int powerLevel = 50;
         private int time = 1;
@@ -27,7 +29,9 @@ namespace Microwave.Classes.Controllers
             IDoor door,
             IDisplay display,
             ILight light,
-            ICookController cooker)
+            ICookController cooker,
+            ITimer timer,
+            IPowerTube powerTube)
         {
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -39,6 +43,8 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+            myTimer = timer;
+            myPowerTube = powerTube;
         }
 
         private void ResetValues()
@@ -49,6 +55,9 @@ namespace Microwave.Classes.Controllers
 
         public void OnPowerPressed(object sender, EventArgs e)
         {
+            myCooker = new CookController(myTimer, myDisplay, myPowerTube);
+
+            
             switch (myState)
             {
                 case States.READY:
@@ -56,7 +65,7 @@ namespace Microwave.Classes.Controllers
                     myState = States.SETPOWER;
                     break;
                 case States.SETPOWER:
-                    powerLevel = (powerLevel >= 700 ? 50 : powerLevel+50);
+                    powerLevel = (powerLevel >= myPowerTube.Watt ? 50 : powerLevel+50);
                     myDisplay.ShowPower(powerLevel);
                     break;
             }
