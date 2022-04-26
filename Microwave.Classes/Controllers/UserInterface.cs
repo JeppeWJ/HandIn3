@@ -17,9 +17,11 @@ namespace Microwave.Classes.Controllers
 
       private States myState = States.READY;
 
-      private ICookController myCooker;
-      private ILight myLight;
-      private IDisplay myDisplay;
+        private ICookController myCooker;
+        private ILight myLight;
+        private IDisplay myDisplay;
+        private ITimer myTimer;
+        private IPowerTube myPowerTube;
 
       private int powerLevel = 50;
       private int time = 1;
@@ -49,6 +51,12 @@ namespace Microwave.Classes.Controllers
          myDisplay = display;
          MaxWatt = cooker.MaxWatt;
       }
+            myCooker = cooker;
+            myLight = light;
+            myDisplay = display;
+            myTimer = timer;
+            myPowerTube = powerTube;
+        }
 
       private void ResetValues()
       {
