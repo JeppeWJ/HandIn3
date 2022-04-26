@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Microwave.Classes;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
 using Microwave.Classes.Interfaces;
@@ -25,6 +26,7 @@ namespace Microwave.Test.Integration
         private IPowerTube powerTube;
         private ITimer timer;
         private IOutput output;
+        private IBuzzer buzzer; 
 
         [SetUp]
         public void Setup()
@@ -33,6 +35,7 @@ namespace Microwave.Test.Integration
             powerButton = new Button();
             timeButton = new Button();
             startCancelButton = new Button();
+            buzzer = new Buzzer(output);
 
             powerTube = Substitute.For<IPowerTube>();
             timer = Substitute.For<ITimer>();
@@ -41,7 +44,7 @@ namespace Microwave.Test.Integration
             light = new Light(output);
             display = new Display(output);
 
-            cooker = new CookController(timer, display, powerTube);
+            cooker = new CookController(timer, display, powerTube, buzzer);
 
             ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
             cooker.UI = ui;
