@@ -1,22 +1,27 @@
 ﻿using System;
+using Microwave.Classes;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
+using Microwave.Classes.Interfaces;
 
 namespace Microwave.App
 {
-   class Program
-   {
-      static void Main(string[] args)
-      {
-         Button startCancelButton = new Button();
-         Button powerButton = new Button();
-         Button timeButton = new Button();
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Button startCancelButton = new Button();
+            Button powerButton = new Button();
+            Button timeButton = new Button();
+            
 
-         Door door = new Door();
+            Door door = new Door();
 
          Output output = new Output();
 
-         Display display = new Display(output);
+            IBuzzer buzzer = new Buzzer(output);
+
+            Display display = new Display(output);
 
          PowerTube powerTube = new PowerTube(output);
 
@@ -24,7 +29,7 @@ namespace Microwave.App
 
          Microwave.Classes.Boundary.Timer timer = new Timer();
 
-         CookController cooker = new CookController(timer, display, powerTube);
+            CookController cooker = new CookController(timer, display, powerTube,buzzer);
 
          UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker);
 
