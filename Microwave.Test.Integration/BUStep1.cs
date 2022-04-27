@@ -18,6 +18,8 @@ namespace Microwave.Test.Integration
         private PowerTube powerTube;
         private CookController cooker;
         private IBuzzer buzzer;
+        private int maxWatt = 700;
+
         private IUserInterface ui;
 
         [SetUp]
@@ -27,7 +29,7 @@ namespace Microwave.Test.Integration
             buzzer = new Buzzer(output);
             timer = new Timer();
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, maxWatt);
 
             ui = Substitute.For<IUserInterface>();
 

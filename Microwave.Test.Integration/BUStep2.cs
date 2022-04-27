@@ -29,6 +29,7 @@ namespace Microwave.Test.Integration
         private IButton startCancelButton;
         private IBuzzer buzzer;
         private IDoor door;
+        private int maxWatt = 700;
 
         [SetUp]
         public void Setup()
@@ -45,7 +46,7 @@ namespace Microwave.Test.Integration
 
             timer = new Timer();
             display = new Display(output);
-            powerTube = new PowerTube(output);
+            powerTube = new PowerTube(output, maxWatt);
 
             light = new Light(output);
 

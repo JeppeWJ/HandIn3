@@ -8,27 +8,33 @@ namespace Microwave.Classes.Controllers
    {
       private enum States
       {
-         READY, SETPOWER, SETTIME, COOKING, DOOROPEN
+         READY,
+         SETPOWER,
+         SETTIME,
+         COOKING,
+         DOOROPEN
       }
 
       private States myState = States.READY;
 
-      private ICookController myCooker;
-      private ILight myLight;
-      private IDisplay myDisplay;
+        private ICookController myCooker;
+        private ILight myLight;
+        private IDisplay myDisplay;
 
       private int powerLevel = 50;
       private int time = 1;
+      public int MaxWatt { get; set; }
+
 
       public UserInterface(
-          IButton powerButton,
-          IButton timeButton,
-          IButton startCancelButton,
-          IButton reduceTimeButton,
-          IDoor door,
-          IDisplay display,
-          ILight light,
-          ICookController cooker)
+            IButton powerButton,
+            IButton timeButton,
+            IButton startCancelButton,
+            IButton reduceTimeButton,
+            IDoor door,
+            IDisplay display,
+            ILight light,
+            ICookController cooker)
       {
          powerButton.Pressed += new EventHandler(OnPowerPressed);
          timeButton.Pressed += new EventHandler(OnTimePressed);
@@ -38,10 +44,12 @@ namespace Microwave.Classes.Controllers
          door.Closed += new EventHandler(OnDoorClosed);
          door.Opened += new EventHandler(OnDoorOpened);
 
-         myCooker = cooker;
-         myLight = light;
-         myDisplay = display;
-      }
+            myCooker = cooker;
+            myLight = light;
+            myDisplay = display;
+            MaxWatt = cooker.MaxWatt;
+
+        }
 
       private void ResetValues()
       {
@@ -51,6 +59,8 @@ namespace Microwave.Classes.Controllers
 
       public void OnPowerPressed(object sender, EventArgs e)
       {
+
+
          switch (myState)
          {
             case States.READY:
@@ -58,9 +68,9 @@ namespace Microwave.Classes.Controllers
                myState = States.SETPOWER;
                break;
             case States.SETPOWER:
-               powerLevel = (powerLevel >= 700 ? 50 : powerLevel + 50);
+               powerLevel = (powerLevel >= MaxWatt ? 50 : powerLevel + 50);
                myDisplay.ShowPower(powerLevel);
-               break; 
+               break;
          }
       }
 
@@ -84,25 +94,25 @@ namespace Microwave.Classes.Controllers
 
       public void OnReduceTimePressed(object sender, EventArgs e)
       {
-          switch (myState)
-          {
-              case States.SETPOWER:
-                  myDisplay.ShowTime(time, 0);
-                  myState = States.SETTIME;
-                  break;
-              case States.SETTIME:
-                  time += 1;
-                  myDisplay.ShowTime(time, 0);
-                  break;
-              case States.COOKING:
-                  myCooker.ReduceTime(10);
-                  break;
-          }
+         switch (myState)
+         {
+            case States.SETPOWER:
+               myDisplay.ShowTime(time, 0);
+               myState = States.SETTIME;
+               break;
+            case States.SETTIME:
+               time += 1;
+               myDisplay.ShowTime(time, 0);
+               break;
+            case States.COOKING:
+               myCooker.ReduceTime(10);
+               break;
+         }
       }
 
 
 
-        public void OnStartCancelPressed(object sender, EventArgs e)
+      public void OnStartCancelPressed(object sender, EventArgs e)
       {
          switch (myState)
          {
