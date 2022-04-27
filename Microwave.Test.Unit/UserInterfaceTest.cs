@@ -35,6 +35,8 @@ namespace Microwave.Test.Unit
          display = Substitute.For<IDisplay>();
          cooker = Substitute.For<ICookController>();
 
+         cooker.MaxWatt = 700;
+
          uut = new UserInterface(
              powerButton, 
              timeButton, 
