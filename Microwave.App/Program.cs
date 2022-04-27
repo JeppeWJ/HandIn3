@@ -24,7 +24,7 @@ namespace Microwave.App
 
          Display display = new Display(output);
 
-         PowerTube powerTube = new PowerTube(output, 800);
+         PowerTube powerTube = new PowerTube(output, 150);
 
          Light light = new Light(output);
 
