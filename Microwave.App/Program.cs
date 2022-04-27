@@ -6,32 +6,32 @@ using Microwave.Classes.Interfaces;
 
 namespace Microwave.App
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Button startCancelButton = new Button();
-            Button powerButton = new Button();
-            Button timeButton = new Button();
-            Button reduceTimeButton = new Button();
-            
+   class Program
+   {
+      static void Main(string[] args)
+      {
+         Button startCancelButton = new Button();
+         Button powerButton = new Button();
+         Button timeButton = new Button();
+         Button reduceTimeButton = new Button();
 
-            Door door = new Door();
+
+         Door door = new Door();
 
          Output output = new Output();
 
-            IBuzzer buzzer = new Buzzer(output);
+         IBuzzer buzzer = new Buzzer(output);
 
-            Display display = new Display(output);
+         Display display = new Display(output);
 
-            PowerTube powerTube = new PowerTube(output, 150);
+         PowerTube powerTube = new PowerTube(output, 800);
 
          Light light = new Light(output);
 
 
-            Microwave.Classes.Boundary.Timer timer = new Timer();
+         Microwave.Classes.Boundary.Timer timer = new Timer();
 
-            CookController cooker = new CookController(timer, display, powerTube,buzzer);
+         CookController cooker = new CookController(timer, display, powerTube, buzzer);
 
          UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, reduceTimeButton, door, display, light, cooker);
 
@@ -40,11 +40,17 @@ namespace Microwave.App
 
          // Simulate a simple sequence
 
-            powerButton.Press();
+         powerButton.Press();
 
-            powerButton.Press();
+         powerButton.Press();
 
-            timeButton.Press();
+         powerButton.Press();
+
+         powerButton.Press();
+
+
+
+         timeButton.Press();
 
          startCancelButton.Press();
 
@@ -53,17 +59,7 @@ namespace Microwave.App
 
          System.Console.WriteLine("When you press enter, the program will stop");
          // Wait for input
-         System.Threading.Thread.Sleep(3000);
 
-         timeButton.Press();
-
-        System.Threading.Thread.Sleep(3000);
-
-         reduceTimeButton.Press();
-
-         System.Threading.Thread.Sleep(3000);
-
-         reduceTimeButton.Press();
          System.Console.ReadLine();
       }
    }
