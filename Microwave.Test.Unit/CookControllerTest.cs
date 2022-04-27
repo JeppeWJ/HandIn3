@@ -106,5 +106,14 @@ namespace Microwave.Test.Unit
          timer.TimeRemaining.Returns(180);
 
       }
+
+      [Test]
+      public void ReduceTime_CorrectTimeAdded()
+      {
+          uut.StartCooking(100,50);
+          uut.ReduceTime(15);
+
+          timer.TimeRemaining.Returns(35);
+      }
    }
 }
