@@ -166,7 +166,7 @@ namespace Microwave.Test.Integration
                 reduceTimeButton, door, display, light, cooker);
             // And make the association
             cooker.UI = ui;
-
+            //e
             // Set the fake timer
             faketimer.TimeRemaining.Returns(59);
 
