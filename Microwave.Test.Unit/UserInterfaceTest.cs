@@ -377,12 +377,16 @@ namespace Microwave.Test.Unit
       public void Cooking_ReduceTimeButton_TimeReduced()
       {
           powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-          // Now in SetPower
+            // Now in SetPower
           reduceTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-          // Now in SetTime
+          timeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            // Now in SetTime
+          reduceTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          
           startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
-          // Now in cooking
+            // Now in cooking
           reduceTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          
           // 10 seconds reduced
 
           cooker.Received(1).ReduceTime(10);
