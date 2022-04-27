@@ -13,6 +13,7 @@ namespace Microwave.Test.Unit
 
       private IButton powerButton;
       private IButton timeButton;
+      private IButton reduceTimeButton;
       private IButton startCancelButton;
 
       private IDoor door;
@@ -27,6 +28,7 @@ namespace Microwave.Test.Unit
       {
          powerButton = Substitute.For<IButton>();
          timeButton = Substitute.For<IButton>();
+         reduceTimeButton = Substitute.For<IButton>();
          startCancelButton = Substitute.For<IButton>();
          door = Substitute.For<IDoor>();
          light = Substitute.For<ILight>();
@@ -34,7 +36,10 @@ namespace Microwave.Test.Unit
          cooker = Substitute.For<ICookController>();
 
          uut = new UserInterface(
-             powerButton, timeButton, startCancelButton,
+             powerButton, 
+             timeButton, 
+             startCancelButton, 
+             reduceTimeButton,
              door,
              display,
              light,
@@ -368,7 +373,21 @@ namespace Microwave.Test.Unit
          cooker.Received(5).AddTime(30);
       }
 
+      [Test]
+      public void Cooking_ReduceTimeButton_TimeReduced()
+      {
+          powerButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          // Now in SetPower
+          reduceTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          // Now in SetTime
+          startCancelButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          // Now in cooking
+          reduceTimeButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+          // 10 seconds reduced
 
-   }
+          cooker.Received(1).ReduceTime(10);
+      }
+
+    }
 
 }
