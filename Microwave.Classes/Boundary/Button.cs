@@ -11,7 +11,7 @@ namespace Microwave.Classes.Boundary
     {
         public event EventHandler Pressed;
 
-        public void Press()
+        public void Press() 
         {
             Pressed?.Invoke(this, EventArgs.Empty);
         }
